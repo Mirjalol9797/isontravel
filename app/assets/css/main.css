@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Ison Travel — дизайн-система
+   Палитра «Логотип»: снята с эмблемы в Telegram-канале
+   и доведена до рабочих контрастов.
+   ============================================================ */
+
+/* static: отдавать ВСЕ токены как CSS-переменные.
+   Без него Tailwind вырезает те, на которые пока нет ссылок,
+   и дизайн-система дырявая. */
+@theme static {
+  /* ---------- Цвет ---------- */
+  --color-bg: #FAF7F1;          /* фон страницы */
+  --color-surface: #FFFFFF;     /* карточки, поля */
+  --color-ink: #2E1409;         /* заголовки, основной текст */
+  --color-body: #4A3A30;        /* длинный текст */
+  --color-muted: #6E6257;       /* подписи, вторичное */
+  --color-line: #E6DFD2;        /* границы, разделители */
+
+  --color-primary: #4F7A12;     /* зелёный из логотипа, 5.1:1 на белом */
+  --color-primary-deep: #2F4A0C;/* тёмные плоскости, футер */
+  --color-on-primary: #FFFFFF;
+
+  --color-accent: #F0A412;      /* солнце из логотипа */
+  --color-accent-dark: #D4900B;
+  --color-accent-soft: #F8E7CD;
+  --color-on-accent: #2E1409;   /* тёмный текст на акценте — 7:1 */
+
+  /* Сложность маршрутов */
+  --color-easy: #5B9A2E;
+  --color-medium: #E0A106;
+  --color-hard: #C2411F;
+
+  /* ---------- Шрифты ---------- */
+  --font-display: 'Unbounded', 'Manrope', system-ui, sans-serif;
+  --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
+
+  /* ---------- Геометрия ---------- */
+  --radius-card: 16px;
+  --radius-xl2: 24px;
+  --container-site: 1280px;
+
+  /* ---------- Тени ---------- */
+  --shadow-soft: 0 2px 8px rgb(46 20 9 / .06);
+  --shadow-card: 0 12px 32px rgb(46 20 9 / .10);
+  --shadow-float: 0 24px 60px rgb(46 20 9 / .16);
+}
+
+/* Каналы для полупрозрачных наложений — Tailwind их не генерирует */
+:root {
+  --overlay-rgb: 36 20 8;
+  --accent-rgb: 240 164 18;
+  --ph-1: #BFD98C;
+  --ph-2: #7AA828;
+  --pad: clamp(20px, 5vw, 40px);
+  --section: clamp(64px, 9vw, 120px);
+}
+
+/* ============================================================
+   База
+   ============================================================ */
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h1 { font-size: clamp(36px, 6.4vw, 76px); }
+  h2 { font-size: clamp(28px, 4.2vw, 48px); line-height: 1.12; }
+  h3 { font-size: clamp(19px, 2vw, 23px); line-height: 1.25; letter-spacing: -0.01em; }
+
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection { background: var(--color-accent-soft); color: var(--color-ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+    }
+  }
+}
+
+/* ============================================================
+   Переиспользуемые примитивы
+   Всё, что специфично для одной секции, живёт в её компоненте.
+   ============================================================ */
+@layer components {
+
+  .container-site {
+    width: 100%;
+    max-width: var(--container-site);
+    margin-inline: auto;
+    padding-inline: var(--pad);
+  }
+
+  .section { padding-block: var(--section); }
+  .section-tight { padding-block: clamp(48px, 6vw, 80px); }
+
+  /* ---------- Шапка секции: заголовок слева, ссылка справа ---------- */
+  .sec-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: clamp(28px, 4vw, 52px);
+  }
+
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+  .link-arrow svg { transition: transform .2s ease; }
+  .link-arrow:hover { color: var(--color-accent-dark); }
+  .link-arrow:hover svg { transform: translateX(5px); }
+
+  @media (max-width: 760px) {
+    .sec-head { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ---------- Надзаголовок ---------- */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--color-accent-dark);
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 2px; background: currentColor; }
+  .eyebrow-light { color: var(--color-accent); }
+
+  /* ---------- Плейсхолдер фотографии ----------
+     Если картинка не пришла, остаётся горный градиент,
+     а не серая дыра.                                    */
+  .ph {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(168deg, var(--ph-1) 0%, var(--ph-2) 44%, var(--color-primary) 100%);
+  }
+  .ph::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 54%;
+    background: var(--color-primary-deep);
+    opacity: .88;
+    clip-path: polygon(0 100%, 0 64%, 13% 24%, 26% 56%, 40% 20%, 55% 57%, 69% 28%, 84% 60%, 100% 34%, 100% 100%);
+  }
+  .ph > :where(img, picture, video) {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---------- Появление при скролле ----------
+     Прячем только когда клиент подтвердил, что анимация будет:
+     без JS текст остаётся на месте.                          */
+  :root.reveal-on .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .6s ease, transform .7s cubic-bezier(.22, 1, .36, 1);
+  }
+  :root.reveal-on .reveal.is-in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root.reveal-on .reveal { opacity: 1; transform: none; transition: none; }
+  }
+}

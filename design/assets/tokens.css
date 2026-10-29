@@ -1,0 +1,39 @@
+/* ============================================================
+   Ison Travel — палитра «Логотип» (утверждена)
+   Снята с эмблемы в Telegram-канале и доведена до рабочих
+   контрастов. Те же значения лежат в app/assets/css/main.css.
+   ============================================================ */
+:root {
+  --bg: #FAF7F1;
+  --surface: #FFFFFF;
+  --ink: #2E1409;
+  --text-body: #4A3A30;
+  --muted: #6E6257;
+  --line: #E6DFD2;
+
+  --primary: #4F7A12;
+  --primary-deep: #2F4A0C;
+  --on-primary: #FFFFFF;
+
+  --accent: #F0A412;
+  --accent-dark: #D4900B;
+  --accent-soft: #F8E7CD;
+  --on-accent: #2E1409;
+  --accent-rgb: 240 164 18;
+
+  --easy: #5B9A2E;
+  --medium: #E0A106;
+  --hard: #C2411F;
+
+  --overlay-rgb: 36 20 8;
+  --shadow-rgb: 46 20 9;
+
+  --ph-1: #BFD98C;
+  --ph-2: #7AA828;
+  --map-1: #EFE9D8;
+  --map-2: #E0E8CD;
+  --map-3: #CFDFBA;
+
+  --warn-bg: #FBF0DC;
+  --warn-ink: #7A4A12;
+}

@@ -1,0 +1,6 @@
+[
+  { "slug": "ison", "name": "Исон", "role": "Основатель", "experience": "8 лет в горах", "photo": "/img/stock/1005.jpg", "directions": ["Ойгаинг", "Палтау"] },
+  { "slug": "ilvina", "name": "Ильвина", "role": "Гид", "experience": "Скалолазание, пещеры", "photo": "/img/stock/1027.jpg", "directions": ["Палтау", "Гулькам"] },
+  { "slug": "ibrohim", "name": "Иброхим", "role": "Гид", "experience": "Высотный треккинг", "photo": "/img/stock/1010.jpg", "directions": ["Мазаржан", "Чимган"] },
+  { "slug": "abdulaziz", "name": "Абдулазиз", "role": "Гид", "experience": "Маршруты для новичков", "photo": "/img/stock/1011.jpg", "directions": ["Сукок", "Чарвак"] }
+]
